@@ -1,0 +1,357 @@
+local tweenService = game:GetService("TweenService")
+local textChatService = game:GetService("TextChatService")
+local replicatedStorage = game:GetService("ReplicatedStorage")
+local userInputService = game:GetService("UserInputService")
+local players = game:GetService("Players")
+local localPlayer = players.LocalPlayer
+local playerGui = localPlayer:WaitForChild("PlayerGui")
+local hasEnteredKey = localPlayer:FindFirstChild("HasEnteredKey")
+
+if not hasEnteredKey then
+  hasEnteredKey = Instance.new("BoolValue")
+  hasEnteredKey.Name = "HasEnteredKey"
+  hasEnteredKey.Value = false
+  hasEnteredKey.Parent = localPlayer
+end
+
+local f1
+
+local function f2()
+  local avatarChanger = Instance.new("ScreenGui")
+  avatarChanger.Name = "AvatarChanger"
+  avatarChanger.ResetOnSpawn = false
+  avatarChanger.Parent = playerGui
+
+  local frame = Instance.new("Frame")
+  frame.Size = UDim2.new(0, 420, 0, 360)
+  frame.Position = UDim2.new(0.5, -210, 0.5, -180)
+  frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+  frame.Active = true
+  frame.Parent = avatarChanger
+
+  Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 10)
+
+  local frame2 = Instance.new("Frame")
+  frame2.Size = UDim2.new(1, 0, 0, 35)
+  frame2.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+  frame2.Parent = frame
+
+  Instance.new("UICorner", frame2).CornerRadius = UDim.new(0, 10)
+
+  local textLabel = Instance.new("TextLabel")
+  textLabel.Text = "👤 E6Toshiro - Avatar Changer"
+  textLabel.Size = UDim2.new(1, -80, 1, 0)
+  textLabel.Position = UDim2.new(0, 10, 0, 0)
+  textLabel.BackgroundTransparency = 1
+  textLabel.TextColor3 = Color3.new(1, 1, 1)
+  textLabel.Font = Enum.Font.GothamBold
+  textLabel.TextSize = 18
+  textLabel.TextXAlignment = Enum.TextXAlignment.Left
+  textLabel.Parent = frame2
+
+  local textButton = Instance.new("TextButton")
+  textButton.Size = UDim2.new(0, 24, 0, 24)
+  textButton.Position = UDim2.new(1, -30, 0, 5)
+  textButton.BackgroundColor3 = Color3.fromRGB(255, 70, 70)
+  textButton.Text = "X"
+  textButton.TextColor3 = Color3.new(1, 1, 1)
+  textButton.Font = Enum.Font.GothamBold
+  textButton.TextSize = 14
+  textButton.Parent = frame2
+
+  Instance.new("UICorner", textButton).CornerRadius = UDim.new(0, 6)
+  textButton.MouseButton1Click:Connect(function() avatarChanger:Destroy() end)
+  local v1 = false
+  local size = frame.Size
+  local offset = frame2.Size.Y.Offset
+
+  local textButton2 = Instance.new("TextButton")
+  textButton2.Size = UDim2.new(0, 24, 0, 24)
+  textButton2.Position = UDim2.new(1, -60, 0, 5)
+  textButton2.BackgroundColor3 = Color3.fromRGB(255, 180, 0)
+  textButton2.Text = "–"
+  textButton2.TextColor3 = Color3.new(1, 1, 1)
+  textButton2.Font = Enum.Font.GothamBold
+  textButton2.TextSize = 14
+  textButton2.Parent = frame2
+
+  Instance.new("UICorner", textButton2).CornerRadius = UDim.new(0, 6)
+
+  textButton2.MouseButton1Click:Connect(function()
+    v1 = not v1
+
+    if v1 then
+      for index, value in ipairs(frame:GetChildren()) do
+        if value ~= frame2 then
+          value.Visible = false
+        end
+      end
+
+      tweenService:Create(frame, TweenInfo.new(0.25), {
+        Size = UDim2.new(size.X.Scale, size.X.Offset, 0, offset),
+      }):Play()
+    else
+      local create = tweenService:Create(frame, TweenInfo.new(0.25), { Size = size })
+      create:Play()
+
+      create.Completed:Connect(function()
+        for index2, value2 in ipairs(frame:GetChildren()) do
+          value2.Visible = true
+        end
+      end)
+    end
+  end)
+
+  local v2, position, position2
+
+  frame2.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+      v2 = true
+      position = input.Position
+      position2 = frame.Position
+    end
+  end)
+
+  frame2.InputEnded:Connect(function(input2)
+    if input2.UserInputType == Enum.UserInputType.MouseButton1 then
+      v2 = false
+    end
+  end)
+
+  userInputService.InputChanged:Connect(function(input3)
+    if v2 and input3.UserInputType == Enum.UserInputType.MouseMovement then
+      local v3 = input3.Position - position
+
+      frame.Position = UDim2.new(
+        position2.X.Scale, position2.X.Offset + v3.X, position2.Y.Scale,
+        position2.Y.Offset + v3.Y
+      )
+    end
+  end)
+
+  local textLabel2 = Instance.new("TextLabel")
+  textLabel2.Size = UDim2.new(1, 0, 0, 25)
+  textLabel2.Position = UDim2.new(0, 0, 1, -25)
+  textLabel2.BackgroundTransparency = 1
+  textLabel2.Text = ""
+  textLabel2.TextColor3 = Color3.fromRGB(255, 80, 80)
+  textLabel2.Font = Enum.Font.Gotham
+  textLabel2.TextSize = 14
+  textLabel2.Parent = frame
+
+  local function f3(p1)
+    f1("/e ;char me " .. p1)
+  end
+
+  for i = 1, 3 do
+    local v4 = 60 + (i - 1) * 80
+
+    local textButton3 = Instance.new("TextButton")
+    textButton3.Size = UDim2.new(0.3, -10, 0, 40)
+    textButton3.Position = UDim2.new(0, 10, 0, v4)
+    textButton3.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+    textButton3.Text = "Char Me"
+    textButton3.TextColor3 = Color3.new(1, 1, 1)
+    textButton3.Font = Enum.Font.GothamBold
+    textButton3.TextSize = 16
+    textButton3.Parent = frame
+
+    Instance.new("UICorner", textButton3).CornerRadius = UDim.new(0, 8)
+
+    local textBox = Instance.new("TextBox")
+    textBox.Size = UDim2.new(0.65, -15, 0, 40)
+    textBox.Position = UDim2.new(0.33, 10, 0, v4)
+    textBox.PlaceholderText = "Enter username..."
+    textBox.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+    textBox.TextColor3 = Color3.new(1, 1, 1)
+    textBox.Font = Enum.Font.Gotham
+    textBox.TextSize = 16
+    textBox.Parent = frame
+
+    Instance.new("UICorner", textBox).CornerRadius = UDim.new(0, 8)
+
+    textButton3.MouseButton1Click:Connect(function()
+      local sS = textBox.Text:match("^%s*(.-)%s*$")
+
+      if sS == "" then
+        textLabel2.Text = "❌ Please enter a username!"
+        return
+      end
+
+      f3(sS)
+
+      textLabel2.Text = "✅ Changed to " .. sS .. "'s avatar!"
+      textLabel2.TextColor3 = Color3.fromRGB(0, 255, 100)
+
+      task.wait(2)
+      textLabel2.Text = ""
+    end)
+  end
+
+  local textButton4 = Instance.new("TextButton")
+  textButton4.Size = UDim2.new(0.45, -10, 0, 40)
+  textButton4.Position = UDim2.new(0.05, 0, 1, -70)
+  textButton4.BackgroundColor3 = Color3.fromRGB(0, 180, 255)
+  textButton4.Text = "HUGE"
+  textButton4.TextColor3 = Color3.new(1, 1, 1)
+  textButton4.Font = Enum.Font.GothamBold
+  textButton4.TextSize = 18
+  textButton4.Parent = frame
+
+  Instance.new("UICorner", textButton4).CornerRadius = UDim.new(0, 8)
+  textButton4.MouseButton1Click:Connect(function() f1("/e ;size me 2") end)
+
+  local textButton5 = Instance.new("TextButton")
+  textButton5.Size = UDim2.new(0.45, -10, 0, 40)
+  textButton5.Position = UDim2.new(0.5, 10, 1, -70)
+  textButton5.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
+  textButton5.Text = "SMALL"
+  textButton5.TextColor3 = Color3.new(1, 1, 1)
+  textButton5.Font = Enum.Font.GothamBold
+  textButton5.TextSize = 18
+  textButton5.Parent = frame
+
+  Instance.new("UICorner", textButton5).CornerRadius = UDim.new(0, 8)
+  textButton5.MouseButton1Click:Connect(function() f1("/e ;size me 0.5") end)
+end
+
+function f1(p2)
+  if textChatService.ChatVersion == Enum.ChatVersion.TextChatService then
+    textChatService.TextChannels.RBXGeneral:SendAsync(p2)
+  else
+    replicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(p2, "All")
+  end
+end
+
+local function f4()
+  local keySystem = Instance.new("ScreenGui")
+  keySystem.Name = "KeySystem"
+  keySystem.ResetOnSpawn = false
+  keySystem.Parent = playerGui
+
+  local frame3 = Instance.new("Frame")
+  frame3.Size = UDim2.new(0, 340, 0, 260)
+  frame3.Position = UDim2.new(0.5, -170, 0.5, -130)
+  frame3.BackgroundColor3 = Color3.fromRGB(28, 28, 28)
+  frame3.BorderSizePixel = 0
+  frame3.Active = true
+  frame3.Draggable = true
+  frame3.Parent = keySystem
+
+  Instance.new("UICorner", frame3).CornerRadius = UDim.new(0, 12)
+
+  local textLabel3 = Instance.new("TextLabel")
+  textLabel3.Text = "🔑 E6Toshiro Key System"
+  textLabel3.Size = UDim2.new(1, -20, 0, 35)
+  textLabel3.Position = UDim2.new(0, 10, 0, 10)
+  textLabel3.BackgroundTransparency = 1
+  textLabel3.TextColor3 = Color3.fromRGB(255, 255, 255)
+  textLabel3.Font = Enum.Font.GothamBold
+  textLabel3.TextSize = 18
+  textLabel3.TextXAlignment = Enum.TextXAlignment.Left
+  textLabel3.Parent = frame3
+
+  local textBox2 = Instance.new("TextBox")
+  textBox2.PlaceholderText = "Enter key"
+  textBox2.Size = UDim2.new(0.85, 0, 0, 40)
+  textBox2.Position = UDim2.new(0.075, 0, 0.32, 0)
+  textBox2.Text = ""
+  textBox2.TextColor3 = Color3.fromRGB(255, 255, 255)
+  textBox2.Font = Enum.Font.Gotham
+  textBox2.TextSize = 16
+  textBox2.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+  textBox2.ClearTextOnFocus = false
+  textBox2.Parent = frame3
+
+  Instance.new("UICorner", textBox2).CornerRadius = UDim.new(0, 8)
+
+  local textButton6 = Instance.new("TextButton")
+  textButton6.Text = "ENTER"
+  textButton6.Size = UDim2.new(0.85, 0, 0, 40)
+  textButton6.Position = UDim2.new(0.075, 0, 0.58, 0)
+  textButton6.TextColor3 = Color3.fromRGB(255, 255, 255)
+  textButton6.Font = Enum.Font.GothamBold
+  textButton6.TextSize = 16
+  textButton6.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+  textButton6.Parent = frame3
+
+  Instance.new("UICorner", textButton6).CornerRadius = UDim.new(0, 8)
+
+  local textButton7 = Instance.new("TextButton")
+  textButton7.Text = "Open Discord"
+  textButton7.Size = UDim2.new(0.4, -5, 0, 35)
+  textButton7.Position = UDim2.new(0.075, 0, 0.78, 0)
+  textButton7.BackgroundColor3 = Color3.fromRGB(100, 120, 255)
+  textButton7.TextColor3 = Color3.fromRGB(255, 255, 255)
+  textButton7.Font = Enum.Font.GothamBold
+  textButton7.TextSize = 15
+  textButton7.Parent = frame3
+
+  Instance.new("UICorner", textButton7).CornerRadius = UDim.new(0, 8)
+
+  local textButton8 = Instance.new("TextButton")
+  textButton8.Text = "Copy Discord Link"
+  textButton8.Size = UDim2.new(0.4, -5, 0, 35)
+  textButton8.Position = UDim2.new(0.525, 5, 0.78, 0)
+  textButton8.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+  textButton8.TextColor3 = Color3.fromRGB(255, 255, 255)
+  textButton8.Font = Enum.Font.GothamBold
+  textButton8.TextSize = 15
+  textButton8.Parent = frame3
+
+  Instance.new("UICorner", textButton8).CornerRadius = UDim.new(0, 8)
+
+  local textLabel4 = Instance.new("TextLabel")
+  textLabel4.Size = UDim2.new(1, 0, 0, 25)
+  textLabel4.Position = UDim2.new(0, 0, 0.93, 0)
+  textLabel4.BackgroundTransparency = 1
+  textLabel4.Text = ""
+  textLabel4.TextColor3 = Color3.fromRGB(255, 80, 80)
+  textLabel4.Font = Enum.Font.Gotham
+  textLabel4.TextSize = 14
+  textLabel4.Parent = frame3
+
+  local function f5()
+    if textBox2.Text == "E6Toshiro" then
+      hasEnteredKey.Value = true
+      keySystem:Destroy()
+      f2()
+    else
+      textLabel4.Text = "❌ Invalid key!"
+    end
+  end
+
+  textButton6.MouseButton1Click:Connect(f5)
+
+  textBox2.FocusLost:Connect(function(p3)
+    if p3 then
+      f5()
+    end
+  end)
+
+  textButton7.MouseButton1Click:Connect(function()
+    if syn and syn.request then
+      syn.request({ Url = "https://discord.gg/45SQ5nuV7D", Method = "GET" })
+    elseif request then
+      request({ Url = "https://discord.gg/45SQ5nuV7D", Method = "GET" })
+    else
+      print("Open this link manually: https://discord.gg/euuqeNxw4G")
+    end
+  end)
+
+  textButton8.MouseButton1Click:Connect(function()
+    if setclipboard then
+      setclipboard("https://discord.gg/45SQ5nuV7D")
+      textLabel4.Text = "✅ Discord link copied!"
+      textLabel4.TextColor3 = Color3.fromRGB(0, 255, 100)
+    else
+      textLabel4.Text = "⚠️ Clipboard not supported!"
+    end
+  end)
+end
+
+if hasEnteredKey.Value then
+  f2()
+else
+  f4()
+end
