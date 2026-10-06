@@ -25,7 +25,7 @@ local function f2()
   local frame = Instance.new("Frame")
   frame.Size = UDim2.new(0, 420, 0, 360)
   frame.Position = UDim2.new(0.5, -210, 0.5, -180)
-  frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+  frame.BackgroundColor3 = Color3.fromRGB(56, 13, 76)
   frame.Active = true
   frame.Parent = avatarChanger
 
@@ -33,7 +33,7 @@ local function f2()
 
   local frame2 = Instance.new("Frame")
   frame2.Size = UDim2.new(1, 0, 0, 35)
-  frame2.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+  frame2.BackgroundColor3 = Color3.fromRGB(10, 34, 61)
   frame2.Parent = frame
 
   Instance.new("UICorner", frame2).CornerRadius = UDim.new(0, 10)
@@ -43,7 +43,7 @@ local function f2()
   textLabel.Size = UDim2.new(1, -80, 1, 0)
   textLabel.Position = UDim2.new(0, 10, 0, 0)
   textLabel.BackgroundTransparency = 1
-  textLabel.TextColor3 = Color3.new(1, 1, 1)
+  textLabel.TextColor3 = Color3.new(19, 92, 6)
   textLabel.Font = Enum.Font.GothamBold
   textLabel.TextSize = 18
   textLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -335,7 +335,7 @@ local function f4()
     elseif request then
       request({ Url = "https://discord.gg/45SQ5nuV7D", Method = "GET" })
     else
-      print("Open this link manually: https://discord.gg/euuqeNxw4G")
+      print("Open this link manually: https://discord.gg/45SQ5nuV7D")
     end
   end)
 
